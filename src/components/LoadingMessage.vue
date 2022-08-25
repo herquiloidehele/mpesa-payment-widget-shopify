@@ -5,14 +5,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { HollowDotsSpinner } from "epic-spinners";
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "LoadingMessage",
   components: {
     HollowDotsSpinner,
   },
-};
+});
 </script>
 
 <style scoped lang="scss">
