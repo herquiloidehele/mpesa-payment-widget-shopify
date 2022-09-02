@@ -1,4 +1,6 @@
 import HttpClient from "@/services/HttpClient";
+import { Constants } from "@/utils/Constants";
+import type { IOrderInfo } from "@/models";
 
 export interface IPaymentResponse {
   status: boolean;
@@ -10,7 +12,7 @@ export default abstract class PaymentService {
     return new Promise(async (resolve, reject) => {
       if (phone && price && orderId) {
         try {
-          const response = await HttpClient.post("/mpesa", {
+          const response = await HttpClient.post(Constants.APIRoutes.requestPayment, {
             phone: "258" + phone,
             price: price,
             orderId,
@@ -43,15 +45,17 @@ export default abstract class PaymentService {
     });
   }
 
-  public static getOrderInfo(orderId: number): Promise<any> {
+  public static getOrderInfo(orderId: number): Promise<IOrderInfo> {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await HttpClient.get("/order/" + orderId);
+        const response = await HttpClient.get(`${Constants.APIRoutes.getOrderInfo}${orderId}`);
 
-        if (response.status === 200) {
-          resolve(response.data);
+        if (response.status === 200 && response.data) {
+          resolve(this.convertOrderInfo(response.data));
           return;
         }
+
+        throw new Error("Order Not Found");
       } catch (error) {
         reject(error);
       }
@@ -77,5 +81,14 @@ export default abstract class PaymentService {
       default:
         return "Ocorreu um erro Inesperado, Tente Novamente";
     }
+  }
+
+  private static convertOrderInfo(data: any): IOrderInfo {
+    return {
+      id: data.legacyResourceId,
+      price: data.totalPrice,
+      phone: data.phone,
+      status: !data.unpaid,
+    };
   }
 }

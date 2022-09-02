@@ -12,7 +12,7 @@
       alt="Numero Mpesa"
       type="tel"
       name="telefone"
-      v-model="telefone"
+      v-model="phone"
     />
     <p class="error-message text-danger" v-if="errorMessage">
       {{ errorMessage }}
@@ -39,7 +39,7 @@ export default defineComponent({
       loading: false,
       inputTouched: false,
       focusInput: false,
-      telefone: "",
+      phone: "",
       errorMessage: "",
     };
   },
@@ -56,7 +56,7 @@ export default defineComponent({
       this.loading = true;
       this.errorMessage = "";
 
-      PaymentService.requestPayment(this.telefone, this.orderInfo.current_subtotal_price, this.orderInfo.id)
+      PaymentService.requestPayment(this.phone, this.orderInfo.price, this.orderInfo.id)
         .then((response) => {
           this.$emit("orderPaid", true);
           console.log(response);
@@ -86,7 +86,7 @@ export default defineComponent({
       return !this.validacao && this.inputTouched;
     },
     validacao() {
-      return this.telefone.match(/^(85|84)[0-9]{7}$/);
+      return this.phone.match(/^(85|84)[0-9]{7}$/);
     },
   },
   created() {

@@ -52,10 +52,10 @@ export default defineComponent({
         this.isLoading = true;
         PaymentService.getOrderInfo(this.orderId)
 
-          .then((response) => {
+          .then((orderResponse) => {
             this.isLoading = false;
-            this.orderInfo = response.data;
-            console.log({ result: this.orderInfo });
+            this.orderInfo = orderResponse;
+            console.log({ result: this.orderInfo.id });
           })
 
           .catch((error) => {
@@ -64,7 +64,7 @@ export default defineComponent({
           });
       } else {
         this.isLoading = false;
-        console.log("Sem ordem Definida");
+        console.log("Order ID not found");
       }
     },
     get_order_id() {
