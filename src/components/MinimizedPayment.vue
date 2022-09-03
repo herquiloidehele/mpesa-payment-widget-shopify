@@ -115,6 +115,12 @@ export default defineComponent({
   }
 
   input {
+    &:focus {
+      outline: none;
+      border-color: #c2c0c0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
     &.input-error {
       border: 2px solid red !important;
     }
