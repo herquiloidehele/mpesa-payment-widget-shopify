@@ -17,8 +17,8 @@
     <p class="error-message text-danger" v-if="errorMessage">
       {{ errorMessage }}
     </p>
-    <div class="btn" :class="errorMessage ? 'mt-2' : 'mt-1'">
-      <button class="btn-payment" @click="makePayment()" v-if="!loading" :disabled="!validacao" :class="!validacao ? 'disabled' : ''">PAGAR</button>
+    <div :class="errorMessage ? 'mt-2' : 'mt-1'">
+      <button class="btn btn-payment" @click="makePayment()" v-if="!loading" :disabled="!validacao" :class="!validacao ? 'disabled' : ''">PAGAR</button>
       <semipolar-spinner v-if="loading" :animation-duration="2000" :size="65" color="#08C988" />
     </div>
   </div>
@@ -96,6 +96,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "./../assets/global.scss";
+
 #payment-section {
   padding: 2em 3em;
   display: flex;
@@ -105,8 +107,8 @@ export default defineComponent({
   background-color: rgba(220, 220, 220, 0.35);
 
   input.numero {
-    padding: 1.1em;
-    font-size: 1.2em;
+    padding: 1em;
+    font-size: 1em;
     text-align: center;
     font-weight: bold;
     max-width: 350px;

@@ -21,6 +21,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "./../assets/global.scss";
+
 .card-success-message {
   padding: 0;
   border-radius: 5px;

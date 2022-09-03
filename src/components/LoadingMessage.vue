@@ -18,6 +18,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "./../assets/global.scss";
+
 .card-loading {
   padding: 4em;
   border-radius: 5px;

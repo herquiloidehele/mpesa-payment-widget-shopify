@@ -20,6 +20,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "./../assets/global.scss";
+
 .card-error-message {
   background-color: rgba(220, 220, 220, 0.35);
 
