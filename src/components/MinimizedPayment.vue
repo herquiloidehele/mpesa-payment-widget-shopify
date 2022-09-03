@@ -157,8 +157,8 @@ export default defineComponent({
     padding: 2em 1em;
 
     input.numero {
-      padding: 1.5em 1.3em !important;
-      font-size: 1em !important;
+      padding: 1em 1em;
+      font-size: 1em;
     }
 
     .btn-payment {
