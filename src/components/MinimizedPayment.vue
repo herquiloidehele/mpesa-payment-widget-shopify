@@ -107,11 +107,12 @@ export default defineComponent({
   background-color: rgba(220, 220, 220, 0.35);
 
   input.numero {
-    padding: 1em;
+    padding: 0.6em;
     font-size: 1em;
     text-align: center;
     font-weight: bold;
     max-width: 350px;
+    margin-bottom: 0.4em;
   }
 
   input {
@@ -149,21 +150,6 @@ export default defineComponent({
     align-self: center;
     font-weight: bold;
     margin: 0 !important;
-  }
-}
-
-@media only screen and (max-width: 640px) {
-  #payment-section {
-    padding: 2em 1em;
-
-    input.numero {
-      padding: 1em 1em;
-      font-size: 1em;
-    }
-
-    .btn-payment {
-      font-size: 0.9em;
-    }
   }
 }
 </style>
