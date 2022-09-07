@@ -56,7 +56,7 @@ export default defineComponent({
       this.loading = true;
       this.errorMessage = "";
 
-      PaymentService.requestPayment(this.phone, this.orderInfo.price, this.orderInfo.id)
+      PaymentService.requestPayment(this.phone, this.orderInfo.price, this.orderInfo.id, this.orderInfo.shop)
         .then((response) => {
           this.$emit("orderPaid", true);
           console.log(response);

@@ -3,4 +3,5 @@ export interface IOrderInfo {
   price: number;
   phone: string;
   status: boolean;
+  shop: string;
 }

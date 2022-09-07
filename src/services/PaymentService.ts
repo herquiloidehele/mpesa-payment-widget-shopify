@@ -8,7 +8,7 @@ export interface IPaymentResponse {
 }
 
 export default abstract class PaymentService {
-  public static requestPayment(phone: string, price: number, orderId: number): Promise<IPaymentResponse> {
+  public static requestPayment(phone: string, price: number, orderId: number, shop: string): Promise<IPaymentResponse> {
     return new Promise(async (resolve, reject) => {
       if (phone && price && orderId) {
         try {
@@ -16,6 +16,7 @@ export default abstract class PaymentService {
             phone: "258" + phone,
             price: price,
             orderId,
+            shop,
           });
 
           if (response.status === 200) {
@@ -45,10 +46,10 @@ export default abstract class PaymentService {
     });
   }
 
-  public static getOrderInfo(orderId: number): Promise<IOrderInfo> {
+  public static getOrderInfo(orderId: number, shop: string): Promise<IOrderInfo> {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await HttpClient.get(`${Constants.APIRoutes.getOrderInfo}${orderId}`);
+        const response = await HttpClient.get(`${Constants.APIRoutes.getOrderInfo}${orderId}/shop/${shop}`);
 
         if (response.status === 200 && response.data) {
           resolve(this.convertOrderInfo(response.data));
@@ -89,6 +90,7 @@ export default abstract class PaymentService {
       price: data.totalPrice,
       phone: data.phone,
       status: !data.unpaid,
+      shop: data.shop,
     };
   }
 }

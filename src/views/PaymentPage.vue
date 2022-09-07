@@ -33,6 +33,7 @@ export default defineComponent({
       orderInfo: null as any,
       isLoading: false,
       orderId: NaN,
+      shopHost: "",
     };
   },
   components: {
@@ -47,10 +48,11 @@ export default defineComponent({
   methods: {
     getData() {
       this.orderId = this.get_order_id() as number;
+      this.shopHost = this.get_shop_host() as string;
 
       if (this.orderId) {
         this.isLoading = true;
-        PaymentService.getOrderInfo(this.orderId)
+        PaymentService.getOrderInfo(this.orderId, this.shopHost)
 
           .then((orderResponse) => {
             this.isLoading = false;
@@ -69,7 +71,11 @@ export default defineComponent({
     },
     get_order_id() {
       const url = new URL(window.location.href);
-      return Number(url.searchParams.get("order_id")) || null;
+      return Number(url.searchParams.get("order")) || null;
+    },
+    get_shop_host() {
+      const url = new URL(window.location.href);
+      return url.searchParams.get("shop") || null;
     },
     onOrderPayd(paid: any) {
       console.log({ paid });
