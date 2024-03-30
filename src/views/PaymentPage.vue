@@ -1,5 +1,14 @@
 <template>
-  <div class="messages" :class="showCard === 'CARD_PAID' ? 'success-bg' : ''" v-if="showCard === 'CARD_PAYMENT' || showCard === 'CARD_PAID' || showCard === 'CARD_NOTFOUND' || showCard === 'CARD_LOADING'">
+  <div
+    class="messages"
+    :class="showCard === 'CARD_PAID' ? 'success-bg' : ''"
+    v-if="
+      showCard === 'CARD_PAYMENT' ||
+      showCard === 'CARD_PAID' ||
+      showCard === 'CARD_NOTFOUND' ||
+      showCard === 'CARD_LOADING'
+    "
+  >
     <div class="row h-100 justify-content-center d-flex" v-if="showCard === 'CARD_PAID'">
       <sucess-message></sucess-message>
     </div>
@@ -13,92 +22,95 @@
     </div>
 
     <div class="h-100 justify-content-center d-flex" v-if="showCard === 'CARD_PAYMENT'">
-      <minimized-payment :order-info="orderInfo" @orderPaid="onOrderPayd($event)"></minimized-payment>
+      <minimized-payment
+        :order-info="orderInfo"
+        @orderPaid="onOrderPayd($event)"
+      ></minimized-payment>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import SucessMessage from "@/components/SucessMessage.vue";
-import ErrorMessage from "@/components/ErrorMessage.vue";
-import LoadingMessage from "@/components/LoadingMessage.vue";
-import MinimizedPayment from "@/components/MinimizedPayment.vue";
-import PaymentService from "@/services/PaymentService";
-import { defineComponent } from "vue";
+import SucessMessage from '@/components/SucessMessage.vue'
+import ErrorMessage from '@/components/ErrorMessage.vue'
+import LoadingMessage from '@/components/LoadingMessage.vue'
+import MinimizedPayment from '@/components/MinimizedPayment.vue'
+import PaymentService from '@/services/PaymentService'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "PaymentPage",
+  name: 'PaymentPage',
   data() {
     return {
       orderInfo: null as any,
       isLoading: false,
       orderId: NaN,
-      shopHost: "",
-    };
+      shopHost: ''
+    }
   },
   components: {
     MinimizedPayment,
     LoadingMessage,
     ErrorMessage,
-    SucessMessage,
+    SucessMessage
   },
   created() {
-    this.getData();
+    this.getData()
   },
   methods: {
     getData() {
-      this.orderId = this.get_order_id() as number;
-      this.shopHost = this.get_shop_host() as string;
+      this.orderId = this.get_order_id() as number
+      this.shopHost = this.get_shop_host() as string
 
       if (this.orderId) {
-        this.isLoading = true;
+        this.isLoading = true
         PaymentService.getOrderInfo(this.orderId, this.shopHost)
 
           .then((orderResponse) => {
-            this.isLoading = false;
-            this.orderInfo = orderResponse;
-            console.log({ result: this.orderInfo.id });
+            this.isLoading = false
+            this.orderInfo = orderResponse
+            console.log({ result: this.orderInfo.id })
           })
 
           .catch((error) => {
-            console.log(error);
-            this.isLoading = false;
-          });
+            console.log(error)
+            this.isLoading = false
+          })
       } else {
-        this.isLoading = false;
-        console.log("Order ID not found");
+        this.isLoading = false
+        console.log('Order ID not found')
       }
     },
     get_order_id() {
-      const url = new URL(window.location.href);
-      return Number(url.searchParams.get("order")) || null;
+      const url = new URL(window.location.href)
+      return Number(url.searchParams.get('order')) || null
     },
     get_shop_host() {
-      const url = new URL(window.location.href);
-      return url.searchParams.get("shop") || null;
+      const url = new URL(window.location.href)
+      return url.searchParams.get('shop') || null
     },
     onOrderPayd(paid: any) {
-      console.log({ paid });
-      this.orderInfo.financial_status = true;
-      console.log(this.orderInfo);
-    },
+      console.log({ paid })
+      this.orderInfo.financial_status = true
+      console.log(this.orderInfo)
+    }
   },
   computed: {
     showCard() {
       if (this.isLoading) {
-        return "CARD_LOADING";
+        return 'CARD_LOADING'
       }
       if (this.orderInfo && this.orderInfo.financial_status === true) {
-        return "CARD_PAID";
+        return 'CARD_PAID'
       }
       if (this.orderInfo) {
-        return "CARD_PAYMENT";
+        return 'CARD_PAYMENT'
       }
       if (!this.orderId) {
-        return "CARD_NOTFOUND";
+        return 'CARD_NOTFOUND'
       }
-      return "CARD_NOTFOUND";
-    },
-  },
-});
+      return 'CARD_NOTFOUND'
+    }
+  }
+})
 </script>

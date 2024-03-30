@@ -1,6 +1,6 @@
 export const Constants = {
   APIRoutes: {
-    requestPayment: "/mpesa",
-    getOrderInfo: "/order/",
-  },
-};
+    requestPayment: '/mpesa',
+    getOrderInfo: '/order/'
+  }
+}

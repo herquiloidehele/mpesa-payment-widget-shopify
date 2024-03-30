@@ -6,19 +6,19 @@
 </template>
 
 <script lang="ts">
-import { HollowDotsSpinner } from "epic-spinners";
-import { defineComponent } from "vue";
+import { HollowDotsSpinner } from 'epic-spinners'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "LoadingMessage",
+  name: 'LoadingMessage',
   components: {
-    HollowDotsSpinner,
-  },
-});
+    HollowDotsSpinner
+  }
+})
 </script>
 
 <style scoped lang="scss">
-@import "./../assets/global.scss";
+@import './../assets/global.scss';
 
 .card-loading {
   padding: 4em;

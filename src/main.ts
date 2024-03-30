@@ -1,14 +1,14 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import HttpClient from "@/services/HttpClient";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/global.scss";
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import HttpClient from '@/services/HttpClient'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/global.scss'
 
-HttpClient.getInstance();
+HttpClient.getInstance()
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(router);
+app.use(router)
 
-app.mount("#app");
+app.mount('#app')

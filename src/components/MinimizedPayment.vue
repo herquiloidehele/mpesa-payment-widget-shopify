@@ -18,85 +18,98 @@
       {{ errorMessage }}
     </p>
     <div :class="errorMessage ? 'mt-2' : 'mt-1'">
-      <button class="btn btn-payment" @click="makePayment()" v-if="!loading" :disabled="!validacao" :class="!validacao ? 'disabled' : ''">PAGAR</button>
+      <button
+        class="btn btn-payment"
+        @click="makePayment()"
+        v-if="!loading"
+        :disabled="!validacao"
+        :class="!validacao ? 'disabled' : ''"
+      >
+        PAGAR
+      </button>
       <semipolar-spinner v-if="loading" :animation-duration="2000" :size="65" color="#08C988" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { SemipolarSpinner } from "epic-spinners";
-import PaymentService from "@/services/PaymentService";
-import { defineComponent } from "vue";
+import { SemipolarSpinner } from 'epic-spinners'
+import PaymentService from '@/services/PaymentService'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "MinimizedPayment",
+  name: 'MinimizedPayment',
   components: {
-    SemipolarSpinner,
+    SemipolarSpinner
   },
   data() {
     return {
       loading: false,
       inputTouched: false,
       focusInput: false,
-      phone: "",
-      errorMessage: "",
-    };
+      phone: '',
+      errorMessage: ''
+    }
   },
   props: {
     orderInfo: {
       type: Object,
       default: () => {
-        return null;
-      },
-    },
+        return null
+      }
+    }
   },
   methods: {
     makePayment() {
-      this.loading = true;
-      this.errorMessage = "";
+      this.loading = true
+      this.errorMessage = ''
 
-      PaymentService.requestPayment(this.phone, this.orderInfo.price, this.orderInfo.id, this.orderInfo.shop)
+      PaymentService.requestPayment(
+        this.phone,
+        this.orderInfo.price,
+        this.orderInfo.id,
+        this.orderInfo.shop
+      )
         .then((response) => {
-          this.$emit("orderPaid", true);
-          console.log(response);
-          this.loading = false;
+          this.$emit('orderPaid', true)
+          console.log(response)
+          this.loading = false
         })
         .catch((error) => {
-          this.errorMessage = error.message;
-          console.log(error);
-          this.loading = false;
-        });
+          this.errorMessage = error.message
+          console.log(error)
+          this.loading = false
+        })
     },
     onInputKeyUp() {
-      this.inputTouched = true;
+      this.inputTouched = true
     },
     onFocusInput(event: FocusEvent) {
-      if (event.type === "blur") {
-        console.log("Focus Out");
-        this.focusInput = false;
-      } else if (event.type === "focus") {
-        console.log("Foco");
-        this.focusInput = true;
+      if (event.type === 'blur') {
+        console.log('Focus Out')
+        this.focusInput = false
+      } else if (event.type === 'focus') {
+        console.log('Foco')
+        this.focusInput = true
       }
-    },
+    }
   },
   computed: {
     validacaoInput() {
-      return !this.validacao && this.inputTouched;
+      return !this.validacao && this.inputTouched
     },
     validacao() {
-      return this.phone.match(/^(85|84)[0-9]{7}$/);
-    },
+      return this.phone.match(/^(85|84)[0-9]{7}$/)
+    }
   },
   created() {
-    console.log("Created Component Payment");
-  },
-});
+    console.log('Created Component Payment')
+  }
+})
 </script>
 
 <style scoped lang="scss">
-@import "./../assets/global.scss";
+@import './../assets/global.scss';
 
 #payment-section {
   padding: 2em 3em;

@@ -2,9 +2,8 @@
   "extends": "@vue/tsconfig/tsconfig.node.json",
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
   "compilerOptions": {
-    "composite": true,
     "types": ["node"],
     "module": "ES2020",
-    "moduleResolution": "Node"
+    "target": "ES2020",
   }
 }
