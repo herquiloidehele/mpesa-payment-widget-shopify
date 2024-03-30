@@ -24,7 +24,7 @@
     <div class="h-100 justify-content-center d-flex" v-if="showCard === 'CARD_PAYMENT'">
       <minimized-payment
         :order-info="orderInfo"
-        @orderPaid="onOrderPayd($event)"
+        @orderPaid="onOrderPaid($event)"
       ></minimized-payment>
     </div>
   </div>
@@ -37,12 +37,13 @@ import LoadingMessage from '@/components/LoadingMessage.vue'
 import MinimizedPayment from '@/components/MinimizedPayment.vue'
 import PaymentService from '@/services/PaymentService'
 import { defineComponent } from 'vue'
+import type { IOrderInfo } from '@/models'
 
 export default defineComponent({
   name: 'PaymentPage',
   data() {
     return {
-      orderInfo: null as any,
+      orderInfo: {} as IOrderInfo,
       isLoading: false,
       orderId: NaN,
       shopHost: ''
@@ -89,9 +90,9 @@ export default defineComponent({
       const url = new URL(window.location.href)
       return url.searchParams.get('shop') || null
     },
-    onOrderPayd(paid: any) {
+    onOrderPaid(paid: any) {
       console.log({ paid })
-      this.orderInfo.financial_status = true
+      this.orderInfo.isPaid = true
       console.log(this.orderInfo)
     }
   },
@@ -100,7 +101,7 @@ export default defineComponent({
       if (this.isLoading) {
         return 'CARD_LOADING'
       }
-      if (this.orderInfo && this.orderInfo.financial_status === true) {
+      if (this.orderInfo && this.orderInfo.isPaid) {
         return 'CARD_PAID'
       }
       if (this.orderInfo) {

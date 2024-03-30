@@ -97,7 +97,7 @@ export default abstract class PaymentService {
       id: data.legacyResourceId,
       price: data.totalPrice,
       phone: data.phone,
-      status: !data.unpaid,
+      isPaid: data.fullyPaid,
       shop: data.shop
     }
   }
