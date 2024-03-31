@@ -21,7 +21,6 @@ export default abstract class PaymentService {
             phone: '258' + phone,
             price: price,
             orderId,
-
             shop
           })
 

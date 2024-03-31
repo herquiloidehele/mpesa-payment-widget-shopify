@@ -44,6 +44,7 @@ export default defineComponent({
   data() {
     return {
       orderInfo: {} as IOrderInfo,
+      notFoundError: false,
       isLoading: false,
       orderId: NaN,
       shopHost: ''
@@ -75,10 +76,12 @@ export default defineComponent({
 
           .catch((error) => {
             console.log(error)
+            this.notFoundError = true
             this.isLoading = false
           })
       } else {
         this.isLoading = false
+        this.notFoundError = true
         console.log('Order ID not found')
       }
     },
@@ -98,6 +101,9 @@ export default defineComponent({
   },
   computed: {
     showCard() {
+      if (!this.orderId || this.notFoundError) {
+        return 'CARD_NOTFOUND'
+      }
       if (this.isLoading) {
         return 'CARD_LOADING'
       }
@@ -106,9 +112,6 @@ export default defineComponent({
       }
       if (this.orderInfo) {
         return 'CARD_PAYMENT'
-      }
-      if (!this.orderId) {
-        return 'CARD_NOTFOUND'
       }
       return 'CARD_NOTFOUND'
     }
