@@ -5,3 +5,11 @@
   display: flex;
   justify-content: center;
 }
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome */
+  }
+}

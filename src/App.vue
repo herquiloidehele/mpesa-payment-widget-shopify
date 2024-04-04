@@ -3,7 +3,7 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" class="hide-scrollbar">
     <RouterView />
   </div>
 </template>
@@ -18,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
+  overflow: hidden;
 
   .messages {
     align-items: center;

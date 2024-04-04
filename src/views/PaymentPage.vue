@@ -1,6 +1,6 @@
 <template>
   <div
-    class="messages"
+    class="messages hide-scrollbar"
     :class="showCard === 'CARD_PAID' ? 'success-bg' : ''"
     v-if="
       showCard === 'CARD_PAYMENT' ||
@@ -9,19 +9,31 @@
       showCard === 'CARD_LOADING'
     "
   >
-    <div class="row h-100 justify-content-center d-flex" v-if="showCard === 'CARD_PAID'">
+    <div
+      class="row h-100 justify-content-center d-flex hide-scrollbar"
+      v-if="showCard === 'CARD_PAID'"
+    >
       <sucess-message></sucess-message>
     </div>
 
-    <div class="row h-100 justify-content-center d-flex" v-if="showCard === 'CARD_NOTFOUND'">
+    <div
+      class="row h-100 justify-content-center d-flex hide-scrollbar"
+      v-if="showCard === 'CARD_NOTFOUND'"
+    >
       <error-message></error-message>
     </div>
 
-    <div class="h-100 justify-content-center d-flex" v-if="showCard === 'CARD_LOADING'">
+    <div
+      class="h-100 justify-content-center d-flex hide-scrollbar"
+      v-if="showCard === 'CARD_LOADING'"
+    >
       <loading-message></loading-message>
     </div>
 
-    <div class="h-100 justify-content-center d-flex" v-if="showCard === 'CARD_PAYMENT'">
+    <div
+      class="h-100 justify-content-center d-flex hide-scrollbar"
+      v-if="showCard === 'CARD_PAYMENT'"
+    >
       <minimized-payment
         :order-info="orderInfo"
         @orderPaid="onOrderPaid($event)"

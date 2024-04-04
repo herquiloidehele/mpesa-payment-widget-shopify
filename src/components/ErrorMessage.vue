@@ -1,5 +1,5 @@
 <template>
-  <div class="card-error-message default-section">
+  <div class="card-error-message default-section hide-scrollbar">
     <div class="content">
       <svg
         width="2.5em"
