@@ -1,0 +1,21 @@
+<script>
+    Shopify.Checkout.OrderStatus.addContentBox(
+    '<h2>Efectuar Pagamento</h2>',
+    "<iframe style='width: 100%; height: 100%;' src='https://mpesa-payment-widget-shopify.vercel.app/?order={{checkout.order_id}}&shop={{shop.permanent_domain}}'></iframe>"
+    )
+</script>
+
+<script>
+    Checkout.$(document).ready(function () {
+    // Hide the map on the order status page.
+    Checkout.$(".map").parent(".content-box__row").css("display", "none");
+    Checkout.$('.os-step__special-description')
+    .parent('.content-box__row')
+    .parent('.content-box')
+    .css('display', 'none')
+
+    // Remove the "order updates" box.
+    document.querySelector('.content-box[data-order-updates="true"]').remove();
+});
+</script>
+
