@@ -112,7 +112,7 @@ export default defineComponent({
 @import './../assets/global.scss';
 
 #payment-section {
-  padding: 2em 3em;
+  padding: 2em 1em;
   display: flex;
   flex-direction: column;
   align-content: center;
