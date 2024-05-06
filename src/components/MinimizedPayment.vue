@@ -14,6 +14,10 @@
       name="telefone"
       v-model="phone"
     />
+    <p class="warning-message">
+      Nota: O pagamento irá incluir a taxa de transferência do Mpesa (3%):
+      <span class="total-price"> {{ getValueWithTax(orderInfo?.price) }} </span>
+    </p>
     <p class="error-message text-danger" v-if="errorMessage">
       {{ errorMessage }}
     </p>
@@ -36,6 +40,7 @@
 import { SemipolarSpinner } from 'epic-spinners'
 import PaymentService from '@/services/PaymentService'
 import { defineComponent } from 'vue'
+import { getValueWithTax } from '../utils/Functions'
 
 export default defineComponent({
   name: 'MinimizedPayment',
@@ -60,6 +65,7 @@ export default defineComponent({
     }
   },
   methods: {
+    getValueWithTax,
     makePayment() {
       this.loading = true
       this.errorMessage = ''
@@ -135,6 +141,12 @@ export default defineComponent({
       -webkit-box-shadow: none;
       box-shadow: none;
     }
+
+    &::placeholder {
+      font-weight: bold;
+      color: #838383;
+    }
+
     &.input-error {
       border: 2px solid red !important;
     }
@@ -163,6 +175,19 @@ export default defineComponent({
     align-self: center;
     font-weight: bold;
     margin: 0 !important;
+  }
+
+  .warning-message {
+    font-size: 0.6em;
+    text-align: left;
+    align-self: flex-start;
+    font-weight: bold;
+    color: #969696;
+    margin: 0.1em;
+  }
+
+  .total-price {
+    color: #08c988;
   }
 }
 </style>

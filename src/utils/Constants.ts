@@ -4,3 +4,5 @@ export const Constants = {
     getOrderInfo: '/order/'
   }
 }
+
+export const MPESA_TAX = 0.03
