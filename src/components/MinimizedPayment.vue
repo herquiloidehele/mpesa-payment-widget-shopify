@@ -179,8 +179,8 @@ export default defineComponent({
 
   .warning-message {
     font-size: 0.6em;
-    text-align: left;
-    align-self: flex-start;
+    text-align: center;
+    align-self: center;
     font-weight: bold;
     color: #969696;
     margin: 0.1em;
